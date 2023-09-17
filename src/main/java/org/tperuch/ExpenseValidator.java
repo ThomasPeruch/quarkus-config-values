@@ -1,23 +1,29 @@
 package org.tperuch;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
 public class ExpenseValidator {
-    private static final boolean DEBUG_ENABLED = true;
-    private static final int RANGE_HIGH = 1000;
-    private static final int  RANGE_LOW = 250;
+    @ConfigProperty(name = "debug-enabled", defaultValue = "false")
+    private boolean debug;
+
+    @ConfigProperty(name = "range-high")
+    private int targetRangeHigh;
+
+    @ConfigProperty(name = "range-low")
+    private int targetRangeLow;
 
     public void debugRanges(){
-        System.out.println("High range = " +RANGE_HIGH);
-        System.out.println("Low range = " +RANGE_LOW);
+        System.out.println("High range = " +targetRangeHigh);
+        System.out.println("Low range = " +targetRangeLow);
     }
 
     public boolean isValidAmount(int amount) {
-        if(DEBUG_ENABLED){
+        if(debug){
             debugRanges();
         }
 
-        return amount >= RANGE_LOW && amount <= RANGE_HIGH;
+        return amount >= targetRangeLow && amount <= targetRangeHigh;
     }
 }
