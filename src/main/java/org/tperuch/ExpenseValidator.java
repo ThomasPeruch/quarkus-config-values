@@ -11,8 +11,7 @@ public class ExpenseValidator {
     ExpenseConfiguration configuration;
 
     public void debugRanges(){
-        System.out.println("High range = " +configuration.rangeHigh());
-        System.out.println("Low range = " +configuration.rangeLow());
+        configuration.debugMessage().ifPresent(System.out::println);
     }
 
     public boolean isValidAmount(int amount) {
